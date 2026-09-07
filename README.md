@@ -35,3 +35,38 @@ Router > Controller > Service
 Router gets Controller via dependency injection
 Controller gets Service via dependency injection
 Service gets (db-client and notification-module) via dependency injection
+
+
+# src/app.ts
+This file initializes all modules, 
+manages their dependencies cleanly, 
+and executes the system.
+
+
+## execute code across modules synchronously
+In a modular monolith, a direct in-memory call 
+via an injected module interface is the cleanest 
+way to execute code across modules synchronously.
+Because both modules live inside the exact same Node.js operating system process, 
+this call bypasses the network completely. 
+It is simply one JavaScript function invoking another JavaScript function.
+
+// never imported anywhere (order/index.ts)
+export type OrderModule = ReturnType<typeof createOrderModule>;
+
+
+## Notification logs
+[Order Module] Creating order K7X8R2W for buyer@example.com
+[Notification Module] Email sent to admin@store.com | Subject: New Order Alert: K7X8R2W
+[Notification Module] Async event received: order.created (K7X8R2W)
+[Notification Module] Email sent to buyer@example.com | Subject: Order #K7X8R2W Confirmed
+
+# strict architectural rule to Maintain Decoupling
+To prevent this from turning into a messy, tightly coupled "spaghetti" monolith, 
+you must follow one strict architectural rule: 
+<Depend on the interface type, never the implementation details.>
+
+
+# dependency injection (DI)
+In software engineering, dependency injection (DI) simply means 
+passing a function or object its required tools rather than having it create them itself.
