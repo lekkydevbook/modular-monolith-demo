@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import { OrderService } from './order.service';
+import { OrderService } from './service';
 
+// imported into index.ts
 export const createOrderController = (orderService: OrderService) => {
   const handleCreateOrder = async (req: Request, res: Response): Promise<void> => {
     // 1. Delegate business work straight to the injected service layer
@@ -13,4 +14,5 @@ export const createOrderController = (orderService: OrderService) => {
   return { handleCreateOrder };
 };
 
+// imported into router
 export type OrderController = ReturnType<typeof createOrderController>;

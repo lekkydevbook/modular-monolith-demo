@@ -1,9 +1,10 @@
 import { DatabaseClient } from '../../db/client';
 import { NotificationModule } from '../notification';
-import { createOrderService } from './order.service';
-import { createOrderController } from './order.controller';
-import { createOrderRouter } from './order.router';
+import { createOrderService } from './service';
+import { createOrderController } from './controller';
+import { createOrderRouter } from './router';
 
+// imported into app.ts
 export const createOrderModule = (db: DatabaseClient, notificationModule: NotificationModule) => {
   // 1. Construct the internal onion layers
   const service = createOrderService(db, notificationModule);
@@ -17,4 +18,5 @@ export const createOrderModule = (db: DatabaseClient, notificationModule: Notifi
   };
 };
 
+// never imported. never used
 export type OrderModule = ReturnType<typeof createOrderModule>;

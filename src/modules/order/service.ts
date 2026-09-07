@@ -5,6 +5,7 @@ import { eventBus } from '../../eventBus';
 
 export type CreateOrderDTO = { customerEmail: string; total: number };
 
+// imported into index.ts
 export const createOrderService = (db: DatabaseClient, notificationModule: NotificationModule) => {
   const createOrder = async (data: CreateOrderDTO) => {
     const totalCents = Math.round(data.total * 100);
@@ -36,4 +37,5 @@ export const createOrderService = (db: DatabaseClient, notificationModule: Notif
   return { createOrder };
 };
 
+// this is injected into controller
 export type OrderService = ReturnType<typeof createOrderService>;

@@ -2,13 +2,14 @@ import { Router } from 'express';
 import { z } from 'zod';
 import { validateBody } from '../../middleware/validate';
 import { catchAsync } from '../../middleware/catchAsync';
-import { OrderController } from './order.controller';
+import { OrderController } from './controller';
 
 const CreateOrderSchema = z.object({
   customerEmail: z.string().email(),
   total: z.number().positive(),
 });
 
+// imported into index.ts
 export const createOrderRouter = (orderController: OrderController) => {
   const router = Router();
 
